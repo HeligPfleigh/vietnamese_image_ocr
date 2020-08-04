@@ -1109,6 +1109,13 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.5.1.tgz#fe257fafe1a7f1c0c6e818017fa65b5ee45c5eca"
   integrity sha512-A19z/E6f08RXfBRc2STQ+5qo7iSPif7mNcww9dZAVli3Idu4umGP5dbpL71Hz1vyRs1eMUEylXTpXsY2WzY07g==
 
+"@types/axios@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@types/axios/-/axios-0.14.0.tgz#ec2300fbe7d7dddd7eb9d3abf87999964cafce46"
+  integrity sha1-7CMA++fX3d1+udOr+HmZlkyvzkY=
+  dependencies:
+    axios "*"
+
 "@types/body-parser@*":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
@@ -1571,6 +1578,18 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+attr-accept@^2.0.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-2.2.0.tgz#7dc2a8b5e2653f90b1310d536c03574aec66de6c"
+  integrity sha512-Tee7K1V8BPZ3OS74UBk3I3e5wfSikSvjy2hb5UvnCJauA8gkg5MENw4dILT018rB3Lze1a3m93lhtJk7xFuAPQ==
+
+axios@*, axios@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
+  dependencies:
+    follow-redirects "1.5.10"
+
 babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
@@ -2017,7 +2036,7 @@ clone-deep@^4.0.1:
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
 
-clsx@^1.0.4:
+clsx@^1.0.4, clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
@@ -2449,6 +2468,13 @@ data-uri-to-buffer@3.0.0:
   dependencies:
     buffer-from "^1.1.1"
 
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  dependencies:
+    ms "2.0.0"
+
 debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -2845,6 +2871,13 @@ figgy-pudding@^3.5.1:
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.2.tgz#b4eee8148abb01dcf1d1ac34367d59e12fa61d6e"
   integrity sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==
 
+file-selector@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.1.12.tgz#fe726547be219a787a9dcc640575a04a032b1fd0"
+  integrity sha512-Kx7RTzxyQipHuiqyZGf+Nz4vY9R1XGxuQl/hLoJwq+J4avk/9wxxgZyHKtbyIPJmbD4A66DWGYfyykWNpcYutQ==
+  dependencies:
+    tslib "^1.9.0"
+
 file-type@^12.4.1:
   version "12.4.2"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-12.4.2.tgz#a344ea5664a1d01447ee7fb1b635f72feb6169d9"
@@ -2912,6 +2945,13 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
+  dependencies:
+    debug "=3.1.0"
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -4877,6 +4917,15 @@ react-dom@^16.12.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.1"
+
+react-dropzone@^11.0.2:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-11.0.2.tgz#1a4084f520c2eafbeb24026760b3ee8f3759cfd3"
+  integrity sha512-/Wde9Il1aJ1FtWllg3N2taIeJh4aftx6UGUG8R1TmLnZit2RnDcEjcKwEEbKwgLXTTh8QQpiZWQJq45jTy1jCA==
+  dependencies:
+    attr-accept "^2.0.0"
+    file-selector "^0.1.12"
+    prop-types "^15.7.2"
 
 react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1:
   version "16.13.1"

@@ -24,7 +24,7 @@ export default function MyApp(props: IMyAppProps) {
   return (
     <React.Fragment>
       <Head>
-        <title>My page</title>
+        <title>Vietnamese Image OCR</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

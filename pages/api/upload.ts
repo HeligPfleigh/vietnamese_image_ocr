@@ -17,6 +17,7 @@ const handler = async (req: any, res: any) => {
     try {
       await worker.load();
       await worker.loadLanguage("vie");
+      await worker.loadLanguage("en");
       await worker.initialize("vie");
       if (!req.file) {
         res.status(400);
@@ -24,7 +25,7 @@ const handler = async (req: any, res: any) => {
       const {
         data: { text },
       } = await worker.recognize(req.file.path);
-      await worker.terminate();
+      // await worker.terminate();
       res.json({ message: text });
     } catch (error) {
       res.status(400);
