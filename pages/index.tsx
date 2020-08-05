@@ -26,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Index() {
+interface IProps {
+  imgur_client_id: string;
+}
+
+export default function Index({ imgur_client_id }: IProps) {
   const classes = useStyles();
   const [recognizedText, setRecognizedText] = useState<string>("");
   const [recognizing, setRecognizing] = useState<boolean>(false);
@@ -40,6 +44,7 @@ export default function Index() {
               <Upload
                 onRecognizedText={setRecognizedText}
                 onRecognizing={setRecognizing}
+                imgurClientID={imgur_client_id}
               />
             </Paper>
           </Grid>
@@ -55,4 +60,12 @@ export default function Index() {
       </div>
     </Layout>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      imgur_client_id: process.env.IMGUR_CLIENT_ID,
+    },
+  };
 }

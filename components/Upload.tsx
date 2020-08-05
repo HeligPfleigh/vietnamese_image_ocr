@@ -27,9 +27,14 @@ const useStyles = makeStyles((theme) => ({
 interface IUpload {
   onRecognizedText: (text: string) => void;
   onRecognizing: (reg: boolean) => void;
+  imgurClientID: string;
 }
 
-export default function Upload({ onRecognizedText, onRecognizing }: IUpload) {
+export default function Upload({
+  onRecognizedText,
+  onRecognizing,
+  imgurClientID,
+}: IUpload) {
   const classes = useStyles();
   const [file, setFile] = useState<File>();
   const [progress, setProgress] = useState<number>(-1);
@@ -57,10 +62,19 @@ export default function Upload({ onRecognizedText, onRecognizing }: IUpload) {
     if (file) {
       const upload = async () => {
         try {
+          onRecognizedText("");
           onRecognizing(true);
           const formData = new FormData();
           formData.append("image", file);
-          const { data } = await axios.post("/api/upload", formData, {
+          console.log(imgurClientID);
+          const {
+            data: {
+              data: { link },
+            },
+          } = await axios.post("https://api.imgur.com/3/image", formData, {
+            headers: {
+              Authorization: `Client-ID ${imgurClientID}`,
+            },
             cancelToken: source.token,
             onUploadProgress: function (progressEvent) {
               const percentCompleted = Math.round(
@@ -69,8 +83,11 @@ export default function Upload({ onRecognizedText, onRecognizing }: IUpload) {
               setProgress(percentCompleted);
             },
           });
+          console.log({ link });
+          const { data } = await axios.post("/api/ocr", { image: link });
           onRecognizedText(data?.message || "");
         } catch (err) {
+          console.log(err);
         } finally {
           onRecognizing(false);
         }
