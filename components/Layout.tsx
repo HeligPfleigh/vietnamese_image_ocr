@@ -31,7 +31,7 @@ const Layout = ({ children, title = "Vietnamese Image OCR" }: Props) => {
       </Head>
       {children}
       <footer className={classes.footer}>
-        Made from love with Nextjs, Multer and Tesseractjs
+        Made from love with Nextjs and Tesseractjs
       </footer>
     </div>
   );

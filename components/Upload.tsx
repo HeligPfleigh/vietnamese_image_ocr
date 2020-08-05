@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { Box, Typography, makeStyles } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
-import axios from "axios";
+import { createWorker } from "tesseract.js";
 
 import UploadProgress from "./UploadProgress";
 
@@ -27,18 +27,12 @@ const useStyles = makeStyles((theme) => ({
 interface IUpload {
   onRecognizedText: (text: string) => void;
   onRecognizing: (reg: boolean) => void;
-  imgurClientID: string;
 }
 
-export default function Upload({
-  onRecognizedText,
-  onRecognizing,
-  imgurClientID,
-}: IUpload) {
+export default function Upload({ onRecognizedText, onRecognizing }: IUpload) {
   const classes = useStyles();
   const [file, setFile] = useState<File>();
   const [progress, setProgress] = useState<number>(-1);
-  const source = axios.CancelToken.source();
 
   const onDrop = useCallback((acceptedFiles) => {
     const [first] = acceptedFiles;
@@ -53,10 +47,19 @@ export default function Upload({
   });
 
   const onCancelUploading = () => {
-    setProgress(-1);
     setFile(undefined);
-    source.cancel();
   };
+
+  const worker = useMemo(
+    () =>
+      createWorker({
+        logger: (m) => {
+          if (m?.status === "recognizing text")
+            setProgress(Math.round(m.progress * 100));
+        },
+      }),
+    []
+  );
 
   useEffect(() => {
     if (file) {
@@ -64,28 +67,14 @@ export default function Upload({
         try {
           onRecognizedText("");
           onRecognizing(true);
-          const formData = new FormData();
-          formData.append("image", file);
-          console.log(imgurClientID);
+          await worker.load();
+          await worker.loadLanguage("vie");
+          await worker.loadLanguage("en");
+          await worker.initialize("vie");
           const {
-            data: {
-              data: { link },
-            },
-          } = await axios.post("https://api.imgur.com/3/image", formData, {
-            headers: {
-              Authorization: `Client-ID ${imgurClientID}`,
-            },
-            cancelToken: source.token,
-            onUploadProgress: function (progressEvent) {
-              const percentCompleted = Math.round(
-                (progressEvent.loaded * 100) / progressEvent.total
-              );
-              setProgress(percentCompleted);
-            },
-          });
-          console.log({ link });
-          const { data } = await axios.post("/api/ocr", { image: link });
-          onRecognizedText(data?.message || "");
+            data: { text },
+          } = await worker.recognize(file);
+          onRecognizedText(text);
         } catch (err) {
           console.log(err);
         } finally {
